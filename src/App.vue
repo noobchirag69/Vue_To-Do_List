@@ -28,6 +28,8 @@ const addTask = () => {
     content: input_content.value,
     createdAt: new Date().getTime()
   })
+
+  input_content.value = ""
 }
 
 const removeTask = (task) => {
