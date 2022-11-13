@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -8,10 +8,6 @@ const tasks = ref([])
 const name = ref('')
 
 const input_content = ref('')
-
-const tasks_asc = computed(() => tasks.value.sort((a, b) => {
-  return a.createdAt - b.createdAt
-}))
 
 watch(name, (newVal) => {
   localStorage.setItem('name', newVal)
@@ -26,9 +22,7 @@ watch(tasks, (newVal) => {
 const addTask = () => {
   tasks.value.push({
     content: input_content.value,
-    createdAt: new Date().getTime()
   })
-
   input_content.value = ""
 }
 
@@ -71,7 +65,7 @@ library.add(faTrash, faPlus)
       <h3>TO-DO LIST</h3>
       <div class="list" id="todo-list">
 
-        <div v-for="task in tasks_asc" class="todo-item">
+        <div v-for="task in tasks" class="todo-item">
 
           <div class="bubble"></div>
 
@@ -148,7 +142,7 @@ h4 {
   margin: 0 1rem;
   border-radius: 50%;
   background-color: var(--business);
-  box-shadow: var(--business-glow);
+  box-shadow: var(--glow);
 }
 
 .create-todo button {
@@ -158,7 +152,7 @@ h4 {
   color: #FFF;
   background-color: var(--danger);
   border-radius: 0.5rem;
-  box-shadow: var(--personal-glow);
+  box-shadow: var(--glow);
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
